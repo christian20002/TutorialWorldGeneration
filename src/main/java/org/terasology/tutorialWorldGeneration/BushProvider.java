@@ -1,5 +1,5 @@
 /*
- * Copyright 2014 MovingBlocks
+ * Copyright 2016 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class BushProvider implements FacetProvider {
     @Override
     public void process(GeneratingRegion region) {
 
-        Border3D border = region.getBorderForFacet(BushFacet.class).extendBy(1, 1, 1);
+        Border3D border = region.getBorderForFacet(BushFacet.class).extendBy(0, 8, 4);
         BushFacet facet = new BushFacet(region.getRegion(), border);
         SurfaceHeightFacet surfaceHeightFacet = region.getRegionFacet(SurfaceHeightFacet.class);
 
@@ -52,7 +52,6 @@ public class BushProvider implements FacetProvider {
 
                     // TODO: check for overlap
                     if (noise.noise(wx, wz) > 0.99) {
-                        System.out.println("tried to make a bush");
                         facet.setWorld(wx, surfaceHeight, wz, new Bush());
                     }
                 }
