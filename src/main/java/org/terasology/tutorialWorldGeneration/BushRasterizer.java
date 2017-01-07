@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 MovingBlocks
+ * Copyright 2016 MovingBlocks
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,24 @@
  */
 package org.terasology.tutorialWorldGeneration;
 
-import java.util.Map.Entry;
+/**
+ * Created by christian on 1/6/2017.
+ */
+/*
+ * Copyright 2015 MovingBlocks
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 
 import org.terasology.math.ChunkMath;
 import org.terasology.math.Region3i;
@@ -28,39 +45,32 @@ import org.terasology.world.chunks.CoreChunk;
 import org.terasology.world.generation.Region;
 import org.terasology.world.generation.WorldRasterizer;
 
-public class HouseRasterizer implements WorldRasterizer {
-    private Block stone;
-    private Block water;
+import java.util.Map;
+
+
+public class BushRasterizer implements WorldRasterizer {
+    private Block bush;
 
     @Override
     public void initialize() {
-        stone = CoreRegistry.get(BlockManager.class).getBlock("Core:Cactus");
+        bush = CoreRegistry.get(BlockManager.class).getBlock("Core:DeadBush");
     }
 
     @Override
     public void generateChunk(CoreChunk chunk, Region chunkRegion) {
-        HouseFacet houseFacet = chunkRegion.getFacet(HouseFacet.class);
-
-        for (Entry<BaseVector3i, House> entry : houseFacet.getWorldEntries().entrySet()) {
+        BushFacet bushFacet = chunkRegion.getFacet(BushFacet.class);
+        for (Map.Entry<BaseVector3i, Bush> entry : bushFacet.getWorldEntries().entrySet()) {
             // there should be a house here
             // create a couple 3d regions to help iterate through the cube shape, inside and out
             Vector3i centerHousePosition = new Vector3i(entry.getKey());
-            int extent = entry.getValue().getExtent();
-            centerHousePosition.add(0, extent, 0);
-            Region3i walls = Region3i.createFromCenterExtents(centerHousePosition, extent);
-            Region3i inside = Region3i.createFromCenterExtents(centerHousePosition, extent - 1);
-
-            // loop through each of the positions in the cube, ignoring the is
-            for (Vector3i newBlockPosition : walls) {
-                if (chunkRegion.getRegion().encompasses(newBlockPosition)
-                        && !inside.encompasses(newBlockPosition)) {
-                    chunk.setBlock(ChunkMath.calcBlockPos(newBlockPosition), stone);
-                }
 
 
-            }
+            //Dead Bush Generator
+            Vector3i bushPosition = new Vector3i(entry.getKey());
+            chunk.setBlock(ChunkMath.calcBlockPos(chunk.getPosition()), bush);
+
 
         }
-    }
 
+    }
 }

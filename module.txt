@@ -2,7 +2,7 @@
     "id" : "TutorialWorldGeneration",
     "version" : "0.1.1-SNAPSHOT",
     "author" : "Josharias",
-    "displayName" : "Tutorial World Generation",
+    "displayName" : "Christian's WG",
     "description" : "A tutorial on world generation using facets",
     "dependencies" :
     [

@@ -38,13 +38,13 @@ public class LakesProvider implements FacetProviderPlugin {
 
     @Override
     public void setSeed(long seed) {
-        lakeNoise = new SubSampledNoise(new BrownianNoise(new PerlinNoise(seed + 3), 4), new Vector2f(0.001f, 0.001f), 1);
+        lakeNoise = new SubSampledNoise(new BrownianNoise(new PerlinNoise(seed + 3), 10), new Vector2f(.0000002f, .000002f), 1);
     }
 
     @Override
     public void process(GeneratingRegion region) {
         SurfaceHeightFacet facet = region.getRegionFacet(SurfaceHeightFacet.class);
-        float lakeDepth = 40;
+        float lakeDepth = 4;
         // loop through every position on our 2d array
         Rect2i processRegion = facet.getWorldRegion();
         for (BaseVector2i position : processRegion.contents()) {

@@ -17,9 +17,9 @@
 package org.terasology.tutorialWorldGeneration;
 
 /**
- * Defines a house.
+ * Defines a bush.
  */
-public class House {
+public class Bush {
     // important fields and properties go here
 
     public int getExtent() {

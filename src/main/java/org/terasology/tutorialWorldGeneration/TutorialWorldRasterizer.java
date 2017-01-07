@@ -27,13 +27,13 @@ import org.terasology.world.generation.facets.SurfaceHeightFacet;
 
 public class TutorialWorldRasterizer implements WorldRasterizer {
 
-    private Block dirt;
-    private Block grass;
+    private Block stone;
+    private Block sand;
 
     @Override
     public void initialize() {
-        dirt = CoreRegistry.get(BlockManager.class).getBlock("Core:Dirt");
-        grass = CoreRegistry.get(BlockManager.class).getBlock("Core:Grass");
+        stone = CoreRegistry.get(BlockManager.class).getBlock("Core:Stone");
+        sand = CoreRegistry.get(BlockManager.class).getBlock("Core:Sand");
     }
 
     @Override
@@ -42,9 +42,9 @@ public class TutorialWorldRasterizer implements WorldRasterizer {
         for (Vector3i position : chunkRegion.getRegion()) {
             float surfaceHeight = surfaceHeightFacet.getWorld(position.x, position.z);
             if (position.y < surfaceHeight - 1) {
-                chunk.setBlock(ChunkMath.calcBlockPos(position), dirt);
+                chunk.setBlock(ChunkMath.calcBlockPos(position), stone);
             } else if (position.y < surfaceHeight) {
-                chunk.setBlock(ChunkMath.calcBlockPos(position), grass);
+                chunk.setBlock(ChunkMath.calcBlockPos(position), sand);
             }
         }
     }

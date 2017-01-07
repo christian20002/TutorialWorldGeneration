@@ -37,8 +37,8 @@ public class MountainsProvider implements ConfigurableFacetProvider {
     private MountainsConfiguration configuration = new MountainsConfiguration();
 
     @Override
-    public void setSeed(long seed) {
-        mountainNoise = new SubSampledNoise(new BrownianNoise(new PerlinNoise(seed + 2), 8), new Vector2f(0.001f, 0.001f), 1);
+    public void setSeed(long seed) {  //edited octaves
+        mountainNoise = new SubSampledNoise(new BrownianNoise(new PerlinNoise(seed + 2), 9), new Vector2f(10f, 10f), 1);
     }
 
     @Override
@@ -51,7 +51,7 @@ public class MountainsProvider implements ConfigurableFacetProvider {
             // scale our max mountain height to noise (between -1 and 1)
             float additiveMountainHeight = mountainNoise.noise(position.x(), position.y()) * mountainHeight;
             // dont bother subtracting mountain height,  that will allow unaffected regions
-            additiveMountainHeight = TeraMath.clamp(additiveMountainHeight, 0, mountainHeight);
+            additiveMountainHeight = TeraMath.clamp(additiveMountainHeight, 4, mountainHeight);
 
             facet.setWorld(position, facet.getWorld(position) + additiveMountainHeight);
         }
@@ -77,7 +77,7 @@ public class MountainsProvider implements ConfigurableFacetProvider {
 
     private static class MountainsConfiguration implements Component
     {
-        @Range(min = 200, max = 500f, increment = 20f, precision = 1, description = "Mountain Height")
-        private float mountainHeight = 400;
+        @Range(min = 0, max = 70f, increment = 2f, precision = 10, description = "Mountain Height")
+        private float mountainHeight = 0;
     }
 }
