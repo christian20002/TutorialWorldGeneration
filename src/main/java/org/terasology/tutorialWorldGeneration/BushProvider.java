@@ -23,7 +23,7 @@ import org.terasology.world.generation.*;
 import org.terasology.world.generation.facets.SurfaceHeightFacet;
 
 @Produces(BushFacet.class)
-@Requires(@Facet(value = SurfaceHeightFacet.class, border = @FacetBorder(sides = 4)))
+@Requires(@Facet(value = SurfaceHeightFacet.class, border = @FacetBorder(sides = 2)))
 public class BushProvider implements FacetProvider {
 
     private Noise noise;
@@ -36,7 +36,7 @@ public class BushProvider implements FacetProvider {
     @Override
     public void process(GeneratingRegion region) {
 
-        Border3D border = region.getBorderForFacet(BushFacet.class).extendBy(0, 8, 4);
+        Border3D border = region.getBorderForFacet(BushFacet.class).extendBy(0, 8,4);
         BushFacet facet = new BushFacet(region.getRegion(), border);
         SurfaceHeightFacet surfaceHeightFacet = region.getRegionFacet(SurfaceHeightFacet.class);
 
@@ -51,7 +51,7 @@ public class BushProvider implements FacetProvider {
                     surfaceHeight <= facet.getWorldRegion().maxY()) {
 
                     // TODO: check for overlap
-                    if (noise.noise(wx, wz) > 0.99) {
+                    if (noise.noise(wx, wz) > 0.95) {
                         facet.setWorld(wx, surfaceHeight, wz, new Bush());
                     }
                 }

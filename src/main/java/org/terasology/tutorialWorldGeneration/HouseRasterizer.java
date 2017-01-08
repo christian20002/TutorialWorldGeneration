@@ -54,7 +54,9 @@ public class HouseRasterizer implements WorldRasterizer {
             for (Vector3i newBlockPosition : walls) {
                 if (chunkRegion.getRegion().encompasses(newBlockPosition)
                         && !inside.encompasses(newBlockPosition)) {
-                    chunk.setBlock(ChunkMath.calcBlockPos(newBlockPosition), stone);
+                    chunk.setBlock(ChunkMath.calcBlockPos(centerHousePosition), stone);
+                   // chunk.setBlock(ChunkMath.calcBlockPos(centerHousePosition), stone);
+
                 }
 
 
